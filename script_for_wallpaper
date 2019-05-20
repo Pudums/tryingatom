@@ -1,0 +1,14 @@
+#!/bin/bash
+for ((i=0;i<1000000;i++))
+do
+for file in /home/max/wal/*
+do
+echo $file
+feh --bg-scale $file
+sleep 30
+done
+#feh --bg-scale /home/max/wal/Anime_women_samurai.jpeg
+#sleep 600
+#feh --bg-scale /home/max/wal/walbl.png 
+#sleep 600
+done
