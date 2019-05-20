@@ -27,7 +27,10 @@ exec setxkbmap -layout "us,ru" -option "grp:caps_toggle,grp_led:scroll"
 
 
 #    --no-startup-id
-exec --no-startup-id feh --bg-scale /home/max/wal/wal.jpg
+#exec --no-startup-id feh --bg-scale /home/max/wal/Anime_women_samurai.jpeg
+#exec --no-startup-id feh --bg-scale /home/max/wal/wal.jpg
+#exec --no-startup-id feh --bg-scale /home/max/wal/*
+exec ./script_for_wallpaper
 
 exec "xrandr --output HDMI1 --right-of DP1 --auto"
 
@@ -310,6 +313,7 @@ bindsym $alt+x	exec termite -e ranger
 bindsym $alt+s	exec skypeforlinux
 bindsym $alt+j	exec jupyter-notebook
 bindsym $alt+g	exec geogebra
+bindsym $alt+r	exec FBReader
 bindsym $mod+x	exec termite -e calc
 
 bindsym $mod+$alt+h exec --no-startup-id systemctl poweroff -i, mode "default"
