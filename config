@@ -10,9 +10,9 @@
 
 set $mod Mod4
 set $alt Mod1
+set $terminal cool-retro-term
 
 font pango: NimbusMono 9
-#font pango: Roboto
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -25,6 +25,7 @@ floating_modifier $mod
 
 exec setxkbmap -layout "us,ru" -option "grp:caps_toggle,grp_led:scroll"
 
+#terminal="cool-retro-terminal"
 
 #    --no-startup-id
 #exec --no-startup-id feh --bg-scale /home/max/wal/Anime_women_samurai.jpeg
@@ -37,7 +38,8 @@ exec "xrandr --output HDMI1 --right-of DP1 --auto"
 exec "dunst"
 
 # start a terminal
-bindsym $mod+Return exec termite
+bindsym $mod+Return exec $terminal
+bindsym $alt+F exec $terminal
 
 #recompiele i3
 bindsym $mod+c exec i3-msg reload && i3-msg restart
@@ -45,17 +47,11 @@ bindsym $mod+c exec i3-msg reload && i3-msg restart
 #start sublime text
 #bindsym $mod+s subl
 
-#open config file
-#bindsym $mod+o exec termite -e nano ~/.config/i3/config
-
 #start file manager
-bindsym $mod+T exec thunar
+bindsym $mod+T exec nautilus
 
 # kill focused window
 bindsym $mod+Shift+q kill
-
-#lock system
-#byndsym $mod+b exec i3lock
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec dmenu_run
@@ -178,11 +174,18 @@ mode "keyboard" {
 	bindsym Escape mode $previous
 }
 
+
+mode "change terminal"{
+	bindsym n set "\$terminal" termite
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+p mode "change terminal"
+
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
-
-        # Pressing left will shrink the window’s width.
+        # Pressing left will shrink  window’s width.
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
@@ -270,9 +273,9 @@ bar {
 }
 }
 
-bindsym $mod+p exec scrot -m /home/max/screenshot/1.png
+#bindsym $mod+p exec scrot -m /home/max/screenshot/1.png
 
-set $Locker --no-startup-id scrot -m /home/max/screenshot/1.png && blur_image -r 3 /home/max/screenshot/1.png -o /home/max/screenshot/1.png && i3lock -i /home/max/screenshot/1.png && sleep 1
+set $Locker --no-startup-id scrot -m /home/max/screenshot/1.png && convert /home/max/screenshot/1.png -blur 0x8 /home/max/screenshot/1.png && i3lock -i /home/max/screenshot/1.png && sleep 1
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
@@ -298,10 +301,10 @@ bindsym $alt+F3  exec --no-startup-id pactl set-sink-volume 0 +10%
 bindsym $alt+F2  exec --no-startup-id pactl set-sink-volume 0 -10%
 
 # Sreen brightness controls
-bindsym $mod+F5  exec xbacklight -inc 5 # increase screen brightness
-bindsym $mod+F4  exec xbacklight -dec 5 # decrease screen brightness
-bindsym $alt+F5  exec xbacklight -inc 20
-bindsym $alt+F4  exec xbacklight -dec 20
+bindsym $mod+F5  exec --no-startup-id xbacklight -inc 5 # increase screen brightness
+bindsym $mod+F4  exec --no-startup-id xbacklight -dec 5 # decrease screen brightness
+bindsym $alt+F5  exec --no-startup-id xbacklight -inc 20
+bindsym $alt+F4  exec --no-startup-id xbacklight -dec 20
 
 #some programs
 bindsym $alt+t  exec telegram-desktop
@@ -309,12 +312,15 @@ bindsym $alt+c  exec chromium
 bindsym $alt+k  exec qbittorrent
 bindsym $alt+v  exec vlc
 bindsym $alt+a  exec atom
-bindsym $alt+x	exec termite -e ranger
+bindsym $alt+x	exec $terminal -e ranger
 bindsym $alt+s	exec skypeforlinux
 bindsym $alt+j	exec jupyter-notebook
 bindsym $alt+g	exec geogebra
 bindsym $alt+r	exec FBReader
-bindsym $mod+x	exec termite -e calc
+bindsym $mod+x	exec $terminal -e calc
+bindsym $mod+y	exec $terminal -e ./test_script.sh
+bindsym $mod+u	exec $terminal -e pacaur -Syu
+
 
 bindsym $mod+$alt+h exec --no-startup-id systemctl poweroff -i, mode "default"
 bindsym $mod+$alt+r exec --no-startup-id systemctl reboot -i, mode "default"
