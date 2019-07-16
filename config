@@ -10,7 +10,6 @@
 
 set $mod Mod4
 set $alt Mod1
-set $terminal cool-retro-term
 
 font pango: NimbusMono 9
 
@@ -25,7 +24,6 @@ floating_modifier $mod
 
 exec setxkbmap -layout "us,ru" -option "grp:caps_toggle,grp_led:scroll"
 
-#terminal="cool-retro-terminal"
 
 #    --no-startup-id
 #exec --no-startup-id feh --bg-scale /home/max/wal/Anime_women_samurai.jpeg
@@ -38,8 +36,8 @@ exec "xrandr --output HDMI1 --right-of DP1 --auto"
 exec "dunst"
 
 # start a terminal
-bindsym $mod+Return exec $terminal
-bindsym $alt+F exec $terminal
+bindsym $mod+Return exec $(cat terminal.txt)
+bindsym $alt+F exec $(cat terminal.txt)
 
 #recompiele i3
 bindsym $mod+c exec i3-msg reload && i3-msg restart
@@ -174,13 +172,7 @@ mode "keyboard" {
 	bindsym Escape mode $previous
 }
 
-
-mode "change terminal"{
-	bindsym n set "\$terminal" termite
-        bindsym Escape mode "default"
-}
-
-bindsym $mod+p mode "change terminal"
+bindsym $mod+p exec ./change_terminal.sh
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -312,14 +304,15 @@ bindsym $alt+c  exec chromium
 bindsym $alt+k  exec qbittorrent
 bindsym $alt+v  exec vlc
 bindsym $alt+a  exec atom
-bindsym $alt+x	exec $terminal -e ranger
+bindsym $alt+x	exec $(cat terminal.txt) -e ranger
 bindsym $alt+s	exec skypeforlinux
 bindsym $alt+j	exec jupyter-notebook
 bindsym $alt+g	exec geogebra
 bindsym $alt+r	exec FBReader
-bindsym $mod+x	exec $terminal -e calc
-bindsym $mod+y	exec $terminal -e ./test_script.sh
-bindsym $mod+u	exec $terminal -e pacaur -Syu
+bindsym $mod+x	exec $(cat terminal.txt) -e calc
+bindsym $mod+y	exec $(cat terminal.txt) -e ./test_script.sh
+bindsym $mod+u	exec $(cat terminal.txt) -e pacaur -Syu
+bindsym $alt+p	exec $(cat terminal.txt) -e sudo wifi-menu
 
 
 bindsym $mod+$alt+h exec --no-startup-id systemctl poweroff -i, mode "default"
