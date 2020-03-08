@@ -11,7 +11,7 @@
 set $mod Mod4
 set $alt Mod1
 
-font pango: NimbusMono 9
+font pango: NimbusMono 14
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -265,9 +265,9 @@ bar {
 }
 }
 
-#bindsym $mod+p exec scrot -m /home/max/screenshot/1.png
+#bindsym $mod+p exec sudo scrot -m /home/max/screenshot/1.png
 
-set $Locker --no-startup-id scrot -m /home/max/screenshot/1.png && convert /home/max/screenshot/1.png -blur 0x8 /home/max/screenshot/1.png && i3lock -i /home/max/screenshot/1.png && sleep 1
+set $Locker --no-startup-id sudo scrot -m /home/max/screenshot/1.png && convert /home/max/screenshot/1.png -blur 0x8 /home/max/screenshot/2.png && i3lock -i /home/max/screenshot/2.png && sudo rm /home/max/screenshot/1.png && sleep 1
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
@@ -302,26 +302,21 @@ bindsym $mod+F4  exec --no-startup-id xbacklight -dec 5 # decrease screen bright
 bindsym $alt+F5  exec --no-startup-id xbacklight -inc 20
 bindsym $alt+F4  exec --no-startup-id xbacklight -dec 20
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness`
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness`
 
 #some programs
 bindsym $alt+t  exec telegram-desktop
 bindsym $alt+c  exec chromium
 bindsym $alt+k  exec qbittorrent
 bindsym $alt+v  exec vlc
-bindsym $alt+a  exec atom
 bindsym $alt+x	exec $(cat terminal.txt) -e ranger
-bindsym $alt+s	exec skypeforlinux
-bindsym $alt+j	exec jupyter-notebook
-bindsym $alt+g	exec geogebra
 bindsym $alt+r	exec FBReader
 bindsym $mod+x	exec $(cat terminal.txt) -e calc
-bindsym $mod+y	exec $(cat terminal.txt) -e ./test_script.sh
-bindsym $mod+u	exec $(cat terminal.txt) -e pacaur -Syu
-bindsym $alt+p	exec $(cat terminal.txt) -e sudo wifi-menu
 
 
-bindsym $mod+$alt+h exec --no-startup-id systemctl poweroff -i, mode "default"
+bindsym $mod+$alt+o exec --no-startup-id systemctl poweroff -i, mode "default"
 bindsym $mod+$alt+r exec --no-startup-id systemctl reboot -i, mode "default"
 bindsym $mod+$alt+s exec --no-startup-id $Locker && systemctl suspend, mode "default"
+bindsym $mod+$alt+l exec --no-startup-id $Locker
+bindsym $mod+$alt+h exec --no-startup-id $Locker && systemctl hibernate, mode "default"
