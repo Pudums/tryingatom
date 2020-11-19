@@ -1,6 +1,8 @@
 #!/bin/bash
 FILE=$1
 extension=${FILE##*.}
+#filename=$(basename -- "$FILE")
+filename="${FILE%.*}"
 if [ $extension = "cpp" ]
 then
   cp $1 ~/Programming/to_compile.cpp
@@ -27,9 +29,9 @@ then
 	shift
 	if [ -n "$1" ]
 	then
-		time python3 $FILE < $1
+		time python3.8 $FILE < $1
 	else
-		time python3 $FILE
+		time python3.8 $FILE
 	fi
 elif [ $extension = "go" ]
 then
@@ -42,5 +44,19 @@ then
 	fi
 elif [ $extension = "tex" ]
 then
-  time
+  #time
+  echo $filename
+  pdflatex $FILE
+  tmp=$filename
+  tmp+=".idx"
+  rm $tmp
+  tmp=$filename
+  tmp+=".aux"
+  rm $tmp
+  tmp=$filename
+  tmp+=".log"
+  rm $tmp
+  result=$filename
+  result+=".pdf"
+  zathura $result
 fi
