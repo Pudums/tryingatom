@@ -1,0 +1,46 @@
+#!/bin/bash
+FILE=$1
+extension=${FILE##*.}
+if [ $extension = "cpp" ]
+then
+  cp $1 ~/Programming/to_compile.cpp
+	#g++ -std=c++17 ~/Programming/to_compile.cpp -o ~/Programming/compiled
+	g++ -std=c++17 $1 -o ~/Programming/compiled
+	#g++ -std=c++17 -O2 -Wall -Wextra -Wshadow -Wconversion -std=c++17 -ggdb $1 -o ~/Programming/compiled
+	#g++ -std=c++17 -O2 -Wall -Wextra -Werror -Wshadow -Wconversion -std=c++17 -ggdb $1 -o ~/Programming/compiled
+#  g++ -std=c++17 -fsanitize=undefined -Wall -Wextra -Werror $1 -o ~/Programming/compiled
+
+
+	shift
+	if [ -n "$1" ]
+	then
+		time ~/Programming/./compiled < $1
+	else
+    #valgrind -q --error-exitcode=123 ~/Programming/./compiled
+		time ~/Programming/./compiled
+	fi
+
+	sudo rm ~/Programming/compiled
+
+elif [ $extension = "py" ]
+then
+	shift
+	if [ -n "$1" ]
+	then
+		time python3 $FILE < $1
+	else
+		time python3 $FILE
+	fi
+elif [ $extension = "go" ]
+then
+	shift
+	if [ -n "$1" ]
+	then
+		time go run $FILE < $1
+	else
+		time go run $FILE
+	fi
+elif [ $extension = "tex" ]
+then
+  time
+fi
