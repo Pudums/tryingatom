@@ -9,7 +9,7 @@ set hlsearch
 set smartcase
 set relativenumber
 set number
-set colorcolumn=60
+set colorcolumn=110
 highlight ColorColumn ctermbg=darkgray
 
 filetype plugin indent on
@@ -20,6 +20,8 @@ set noexpandtab
 
 syntax on
 
+map <F7> :!g++ "%" -lncurses -o ~/Programming/hell && ~/Programming/./hell<CR>
+map <F8> :!clear && cmake -j 8 . && make -j 8 <CR>
 map <F9> :!compile "%" <CR>
 map <F10> :!compile "%" ~/Programming/input.txt<CR>
 map <F2> :bp <CR>
