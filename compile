@@ -22,7 +22,7 @@ then
 		time ~/Programming/./compiled
 	fi
 
-	sudo rm ~/Programming/compiled
+	rm -rf ~/Programming/compiled
 
 elif [ $extension = "py" ]
 then
